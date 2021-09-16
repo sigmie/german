@@ -4,15 +4,20 @@ declare(strict_types=1);
 
 namespace Sigmie\German\Filter;
 
-use Sigmie\Base\Analysis\TokenFilter\Stopwords as TokenFilterStopwords;
+use Sigmie\Base\Analysis\TokenFilter\TokenFilter;
 
 use function Sigmie\Helpers\name_configs;
 
-class Stopwords extends TokenFilterStopwords
+class Normalize extends TokenFilter
 {
-    public function __construct(string $name = 'german_stopwords')
+    public function __construct(string $name = 'german_normalization')
     {
         parent::__construct($name);
+    }
+
+    public function type(): string
+    {
+        return 'german_normalization';
     }
 
     public static function fromRaw(array $raw): static
@@ -22,15 +27,8 @@ class Stopwords extends TokenFilterStopwords
         return new static($name);
     }
 
-    public function type(): string
-    {
-        return 'stop';
-    }
-
     protected function getValues(): array
     {
-        return [
-            'stopwords' => '_german_',
-        ];
+        return [];
     }
 }
